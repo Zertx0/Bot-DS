@@ -208,7 +208,8 @@ async def on_ready():
 
 @bot.event
 async def on_voice_state_update(member, before, after):
-    
+    if member.bot:
+        return
     # 1. Lógica de DESVERIFICACIÓN (La Molestia: al salir de voz, se desverifica)
     if before.channel is not None and after.channel is None:
         if member.id in USUARIOS_VERIFICADOS_VOZ:
@@ -244,4 +245,5 @@ if __name__ == "__main__":
     except discord.HTTPException as e:
         print(f"🚨 ERROR: No se pudo conectar. Verifica que tu token sea correcto. Error: {e}")
     except Exception as e:
+
         print(f"🚨 ERROR INESPERADO: {e}")
